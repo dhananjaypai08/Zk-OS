@@ -1,6 +1,6 @@
 specVersion: 1.1.0
 features: 
-  fullTextSearch
+  [fullTextSearch]
 indexerHints:
   prune: auto
 schema:
