@@ -21,7 +21,6 @@
     "hardhat:lint": "yarn workspace @se-2/hardhat lint",
     "hardhat:lint-staged": "yarn workspace @se-2/hardhat lint-staged",
     "hardhat:test": "yarn workspace @se-2/hardhat test",
-    "postinstall": "husky install",
     "next:build": "yarn workspace @se-2/nextjs build",
     "next:check-types": "yarn workspace @se-2/nextjs check-types",
     "next:format": "yarn workspace @se-2/nextjs format",
