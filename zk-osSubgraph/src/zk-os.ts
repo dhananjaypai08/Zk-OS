@@ -176,9 +176,9 @@ export function handleTransfer(event: TransferEvent): void {
 
 export function handleUpkeepCheck(event: UpkeepCheckEvent): void {
   let entity = new UpkeepCheck(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()).toHexString()
   )
-  entity._timestamp = event.params._timestamp
+  entity.timestamp = event.params._timestamp.toI64()
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

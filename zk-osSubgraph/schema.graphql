@@ -18,7 +18,7 @@ type ApprovalForAll @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type Attestations @entity(immutable: true) {
+type Attestations @entity {
   id: Bytes!
   owner: Bytes! # address
   subgraph_owner: Bytes! # address
@@ -38,6 +38,14 @@ type Attestations @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+type _Schema_
+  @fulltext(
+    name: "attestationSearch"
+    language: en
+    algorithm: rank
+    include: [{ entity: "Attestations", fields: [{ name: "subgraph_endpoint" }, { name: "attestation_data" }] }]
+  )
 
 type BatchMetadataUpdate @entity(immutable: true) {
   id: Bytes!
@@ -94,12 +102,18 @@ type Transfer @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type UpkeepCheck @entity(immutable: true) {
-  id: Bytes!
-  _timestamp: BigInt! # uint256
+type UpkeepCheck @entity(timeseries: true) {
+  id: Int8!
+  timestamp: Timestamp! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+}
+
+type UpkeepStats @aggregation(intervals: ["hour", "day"], source: "UpkeepCheck") {
+  id: Int8!
+  timestamp: Timestamp!
+  count: BigDecimal! @aggregate(fn: "count", arg: "blockNumber")
 }
 
 type ZkProof @entity(immutable: true) {
