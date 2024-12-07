@@ -1,0 +1,5 @@
+sources:
+  - name: graphnetwork
+    handler:
+      graphql:
+        endpoint: https://gateway.thegraph.com/api/d251e73c747c8f3ebedf01e9ec02972a/subgraphs/id/DZz4kDTdmzWLWsV373w2bSmoar3umKKH9y82SUKr5qmp
