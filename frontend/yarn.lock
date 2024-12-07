@@ -13233,6 +13233,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lucide-react@npm:^0.468.0":
+  version: 0.468.0
+  resolution: "lucide-react@npm:0.468.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
+  checksum: 88acf196b1dedb605deb94da0aae5af9cf545080501fda3d586db9087751225ef101e5cff8d3226614d3879dc0765d8fefeced9eff62ab01bd02f2bdccc4ad91
+  languageName: node
+  linkType: hard
+
 "make-dir@npm:^3.1.0":
   version: 3.1.0
   resolution: "make-dir@npm:3.1.0"
@@ -16180,6 +16189,7 @@ __metadata:
     hardhat: ^2.22.17
     husky: ~8.0.3
     lint-staged: ~13.2.2
+    lucide-react: ^0.468.0
     recharts: ^2.14.1
   languageName: unknown
   linkType: soft

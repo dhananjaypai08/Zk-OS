@@ -100,7 +100,7 @@ export default function UploadPage() {
                 </label>
                 <textarea
                   id="metadata"
-                  className="textarea textarea-bordered w-full min-h-[200px]"
+                  className="textarea w-full min-h-[200px]"
                   placeholder="Enter subgraph metadata..."
                   value={metadata}
                   onChange={e => setMetadata(e.target.value)}
