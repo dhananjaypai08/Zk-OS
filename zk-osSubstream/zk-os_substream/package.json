@@ -1,0 +1,13 @@
+{
+  "name": "zk-os_substream",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ zk-os_substream",
+    "create-local": "graph create --node http://localhost:8020/ zk-os_substream",
+    "remove-local": "graph remove --node http://localhost:8020/ zk-os_substream",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 zk-os_substream",
+    "test": "graph test"
+  },
+  "dependencies": { "@graphprotocol/graph-cli": "0.91.1" }
+}

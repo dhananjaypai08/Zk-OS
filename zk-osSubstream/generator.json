@@ -1,0 +1,7 @@
+{
+  "generator": "evm-minimal",
+  "state": {
+    "name": "zkossubstream",
+    "chainName": "mainnet"
+  }
+}

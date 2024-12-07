@@ -8,11 +8,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import {AutomationCompatibleInterface} from "@chainlink/contracts/src/v0.8/automation/AutomationCompatible.sol";
 
 contract ZkOS is ERC721URIStorage, Ownable, AutomationCompatibleInterface {
-    event UpkeepCheck(uint256 _timestamp);
-    event PerformUpkeep(uint256 _timestamp, uint256 _counter);
-    event Mint(address _to, string uri, uint256 _timestamp);
-    event ZkProof(address owner, bytes32 zk_hash, uint256 _timestamp);
-    event Attestations(address owner, SubGraph subgraph, Attestation attestation, uint256 _timestamp);
+    event UpkeepCheck(uint256 timestamp);
+    event PerformUpkeep(uint256 timestamp, uint256 _counter);
+    event Mint(address _to, string uri, uint256 timestamp);
+    event ZkProof(address owner, string zk_hash, uint256 timestamp);
+    event Attestations(address owner, SubGraph subgraph, Attestation attestation, uint256 timestamp);
+    event Reputation(address owner, uint256 score);
 
     struct Attestation{
         address owner;
@@ -23,7 +24,7 @@ contract ZkOS is ERC721URIStorage, Ownable, AutomationCompatibleInterface {
     struct SubGraph {
         address owner;
         string endpoint;
-        bytes32 zk_proof;
+        string zk_proof;
         uint256 datetime;
         uint256 attestation_count;
     }
@@ -32,6 +33,7 @@ contract ZkOS is ERC721URIStorage, Ownable, AutomationCompatibleInterface {
     address[] public all_users;
     mapping(address => SubGraph[]) public all_subgraphs_of_user;
     mapping(string => SubGraph) public endpoint_mapped_to_subgraph;
+    mapping(address => uint256) public reputation_score;
  
     // using Counters for Counters.Counter;
     // Counters.Counter private _tokenIdCounter;
@@ -61,7 +63,7 @@ contract ZkOS is ERC721URIStorage, Ownable, AutomationCompatibleInterface {
     }
  
     // Upload subgraph
-    function safeMint(string memory subgraph_endpoint, string memory uri, address to, bytes32 zk_proof_hash) public {
+    function safeMint(string memory subgraph_endpoint, string memory uri, address to, string memory zk_proof_hash) public {
         // uint256 tokenId = _tokenIdCounter.current();
         // _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter;
@@ -78,6 +80,9 @@ contract ZkOS is ERC721URIStorage, Ownable, AutomationCompatibleInterface {
         all_subgraphs_of_user[to].push(newSubGraph);
         endpoint_mapped_to_subgraph[subgraph_endpoint] = newSubGraph;
         emit ZkProof(to, zk_proof_hash, block.timestamp);
+
+        reputation_score[to] += 1;
+        emit Reputation(to, reputation_score[to]);
     }
 
     function attest_subgraph(string memory data, address owner, string memory subgraph_endpoint) public {
