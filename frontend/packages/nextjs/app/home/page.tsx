@@ -32,8 +32,7 @@ const Home: NextPage = () => {
                   <h3 className="text-[#00ff9d] text-xl font-bold">zkMonitor</h3>
                 </div>
                 <p className="text-gray-400">
-                  Decentralized identity verification with zero-knowledge proofs for privacy-first compliance. Protect
-                  your personal data while meeting regulatory requirements.
+                Real-time monitoring and analytics of subgraph deployments across 10 blockchain networks, tracking indexing performance, query volume, and curator activity.
                 </p>
               </div>
             </div>

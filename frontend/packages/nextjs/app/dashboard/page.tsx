@@ -123,10 +123,10 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen bg-[#0B1120] flex flex-col">
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-4xl font-bold mb-8">Graph Network Analytics</h1>
+          <h1 className="text-4xl font-bold mb-8">Multi-chain Subgraphs</h1>
           {dashboardData && <GraphDashboard data={dashboardData} />}
         </div>
       </main>
