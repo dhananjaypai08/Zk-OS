@@ -10,11 +10,75 @@ const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
 
   return (
-    <div className="flex items-center flex-col flex-grow pt-10">
-      <div className="px-5">
-        <h1 className="text-center mb-8" />
-        <span className="block text-4xl font-bold">zkOS Platform</span>
-        <span className="block text-2xl mb-2">Building the Future of Web3</span>
+    <div className="min-h-screen bg-[#0B1120] flex flex-col">
+      {/* Hero Section */}
+      <div className="flex items-center flex-col flex-grow pt-20 px-4">
+        <h1 className="text-center mb-8">
+          <span className="block text-6xl font-bold mb-4">
+            <span className="text-white">zkOS</span>{" "}
+            <span className="text-[#00ff9d]">Platform</span>
+          </span>
+          <span className="block text-xl text-gray-400">Building the Future of Web3</span>
+        </h1>
+
+        {/* Feature Cards Container */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-16 mb-20">
+          {/* zkKYC Card */}
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-[#00ff9d] opacity-20 blur-xl rounded-2xl group-hover:opacity-30 transition-opacity"></div>
+            <div className="relative bg-black/40 border border-[#00ff9d]/20 p-8 rounded-2xl hover:border-[#00ff9d]/40 transition-all">
+              <div className="flex items-center mb-4">
+                <span className="text-3xl mr-3">🔒</span>
+                <h3 className="text-[#00ff9d] text-xl font-bold">zkKYC</h3>
+              </div>
+              <p className="text-gray-400">Decentralized identity verification with zero-knowledge proofs for privacy-first compliance. Protect your personal data while meeting regulatory requirements.</p>
+            </div>
+          </div>
+
+          {/* zkWallet Card */}
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-[#00ff9d] opacity-20 blur-xl rounded-2xl group-hover:opacity-30 transition-opacity"></div>
+            <div className="relative bg-black/40 border border-[#00ff9d]/20 p-8 rounded-2xl hover:border-[#00ff9d]/40 transition-all">
+              <div className="flex items-center mb-4">
+                <span className="text-3xl mr-3">💼</span>
+                <h3 className="text-[#00ff9d] text-xl font-bold">zkWallet</h3>
+              </div>
+              <p className="text-gray-400">Secure digital asset management with privacy-preserving transactions. Keep your financial activities confidential while maintaining full control.</p>
+            </div>
+          </div>
+
+          {/* zkBridge Card */}
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-[#00ff9d] opacity-20 blur-xl rounded-2xl group-hover:opacity-30 transition-opacity"></div>
+            <div className="relative bg-black/40 border border-[#00ff9d]/20 p-8 rounded-2xl hover:border-[#00ff9d]/40 transition-all">
+              <div className="flex items-center mb-4">
+                <span className="text-3xl mr-3">🔄</span>
+                <h3 className="text-[#00ff9d] text-xl font-bold">zkBridge</h3>
+              </div>
+              <p className="text-gray-400">Cross-chain asset transfer with zero-knowledge security guarantees. Bridge assets across different blockchains without compromising on privacy or security.</p>
+            </div>
+          </div>
+
+          {/* zkDAO Card */}
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-[#00ff9d] opacity-20 blur-xl rounded-2xl group-hover:opacity-30 transition-opacity"></div>
+            <div className="relative bg-black/40 border border-[#00ff9d]/20 p-8 rounded-2xl hover:border-[#00ff9d]/40 transition-all">
+              <div className="flex items-center mb-4">
+                <span className="text-3xl mr-3">🛡️</span>
+                <h3 className="text-[#00ff9d] text-xl font-bold">zkDAO</h3>
+              </div>
+              <p className="text-gray-400">Decentralized governance platform with private voting mechanisms. Participate in DAO governance while maintaining vote privacy and preventing front-running.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Connected Address Section (if needed) */}
+        {connectedAddress && (
+          <div className="mt-8 text-center">
+            <p className="text-gray-400 mb-2">Connected Account:</p>
+            <Address address={connectedAddress} />
+          </div>
+        )}
       </div>
     </div>
   );
