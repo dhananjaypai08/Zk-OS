@@ -73,7 +73,7 @@ const Home: NextPage = () => {
           </Link>
 
           {/* zkStore Card */}
-          <div className="group transform hover:scale-[1.02] transition-all duration-300">
+          <Link href={"/akave"} className="group transform hover:scale-[1.02] transition-all duration-300">
             <div className="relative h-full">
               <div className="absolute -inset-0.5 bg-gradient-to-r from-[#8fffad] to-[#4AA8FF] opacity-20 group-hover:opacity-30 blur rounded-2xl transition-all duration-300"></div>
               <div className="relative h-full bg-black/40 backdrop-blur-sm border border-[#8fffad]/20 p-8 rounded-2xl group-hover:border-[#8fffad]/40 transition-all">
@@ -90,7 +90,8 @@ const Home: NextPage = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </Link>
+          
 
           {/* zkWallet Card */}
           <div className="group transform hover:scale-[1.02] transition-all duration-300">

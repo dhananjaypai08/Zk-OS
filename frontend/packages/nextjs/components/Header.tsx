@@ -4,7 +4,13 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
+import { 
+  BugAntIcon, 
+  ChartBarIcon, 
+  ArrowUpTrayIcon, 
+  ShoppingCartIcon,
+  Bars3Icon 
+} from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -20,9 +26,19 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/home",
   },
   {
-    label: "Upload",
+    label: "zkMonitor",
+    href: "/dashboard",
+    icon: <ChartBarIcon className="h-4 w-4" />,
+  },
+  {
+    label: "zkSubgraph",
     href: "/upload",
-    icon: <BugAntIcon className="h-4 w-4" />,
+    icon: <ArrowUpTrayIcon className="h-4 w-4" />,
+  },
+  {
+    label: "zkStore",
+    href: "/akave",
+    icon: <ShoppingCartIcon className="h-4 w-4" />,
   },
 ];
 
