@@ -2,3 +2,5 @@ env/
 .env
 __pycache__/
 winenv/
+node_modules/
+package-lock.json

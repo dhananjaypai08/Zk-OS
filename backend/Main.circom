@@ -6,9 +6,10 @@ include "node_modules/circomlib/circuits/comparators.circom";
 
 template AddressVerifier() {
     // Public inputs
-    signal input address[160]; // Address as array of bits
+    signal input address; // Address as array of bits
     signal input expectedAddress; // Expected address as field element
     
+    /*
     // Convert address bits to field element
     component bits2Num = Bits2Num(160);
     for (var i = 0; i < 160; i++) {
@@ -22,6 +23,8 @@ template AddressVerifier() {
     
     // Enforce equality
     isEqual.out === 1;
+    */
+    address === expectedAddress;
 }
 
 component main = AddressVerifier();
