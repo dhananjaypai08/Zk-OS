@@ -35,10 +35,10 @@ const TerminalPage: React.FC = () => {
       setOutput(prev => [
         ...prev,
         "📁 home - Main Application",
-        "🔒 zkKYC - Decentralized Identity Verification",
-        "💼 zkWallet - Secure Digital Asset Management",
-        "🔄 zkBridge - Cross-Chain Asset Transfer",
-        "🛡️ zkDAO - Decentralized Governance Platform",
+        "🔒 zkMonitor",
+        "💼 zkSubgraph",
+        "🔄 zkStorage",
+        "🛡️ zkWallet",
         "",
         'Use "cd <directory>" to navigate'
       ]);

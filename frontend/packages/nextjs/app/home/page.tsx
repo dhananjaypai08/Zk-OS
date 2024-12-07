@@ -25,7 +25,7 @@ const Home: NextPage = () => {
               <span className="text-[#8fffad]">OS</span>
               <span className="text-[#4AA8FF]"> Platform</span>
             </span>
-            <span className="block text-2xl text-gray-400 mt-4">Building the Future of Web3</span>
+            <span className="block text-2xl text-gray-400 mt-4">Bringing verifiable data on-chain through zero-knowledge proofs</span>
           </h1>
           <div className="absolute -inset-4 bg-gradient-to-r from-[#8fffad]/20 via-[#4AA8FF]/20 to-[#8fffad]/20 blur-xl opacity-50 rounded-full"></div>
         </div>
