@@ -18,7 +18,7 @@ type ApprovalForAll @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type Attestations @entity {
+type Attestations @entity(immutable: true) {
   id: Bytes!
   owner: Bytes! # address
   subgraph_owner: Bytes! # address
