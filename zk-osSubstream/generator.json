@@ -1,7 +1,0 @@
-{
-  "generator": "evm-minimal",
-  "state": {
-    "name": "zkos",
-    "chainName": "sepolia"
-  }
-}
