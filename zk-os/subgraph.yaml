@@ -1,0 +1,56 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ZkOS
+    network: base-sepolia
+    source:
+      address: "0x1c24D24c621833a242b2a28c3507aeC6fEEa8fEc"
+      abi: ZkOS
+      startBlock: 18886656
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - Attestations
+        - BatchMetadataUpdate
+        - MetadataUpdate
+        - Mint
+        - OwnershipTransferred
+        - PerformUpkeep
+        - Transfer
+        - UpkeepCheck
+        - ZkProof
+      abis:
+        - name: ZkOS
+          file: ./abis/ZkOS.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: Attestations(address,(address,string,bytes32,uint256,uint256),(address,string,(address,string,bytes32,uint256,uint256)),uint256)
+          handler: handleAttestations
+        - event: BatchMetadataUpdate(uint256,uint256)
+          handler: handleBatchMetadataUpdate
+        - event: MetadataUpdate(uint256)
+          handler: handleMetadataUpdate
+        - event: Mint(address,string,uint256)
+          handler: handleMint
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PerformUpkeep(uint256,uint256)
+          handler: handlePerformUpkeep
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: UpkeepCheck(uint256)
+          handler: handleUpkeepCheck
+        - event: ZkProof(address,bytes32,uint256)
+          handler: handleZkProof
+      file: ./src/zk-os.ts

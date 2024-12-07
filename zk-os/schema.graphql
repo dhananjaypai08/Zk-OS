@@ -1,0 +1,113 @@
+type Approval @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  approved: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ApprovalForAll @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Attestations @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  subgraph_owner: Bytes! # address
+  subgraph_endpoint: String! # string
+  subgraph_zk_proof: Bytes! # bytes32
+  subgraph_datetime: BigInt! # uint256
+  subgraph_attestation_count: BigInt! # uint256
+  attestation_owner: Bytes! # address
+  attestation_data: String! # string
+  attestation_subgraph_owner: Bytes! # address
+  attestation_subgraph_endpoint: String! # string
+  attestation_subgraph_zk_proof: Bytes! # bytes32
+  attestation_subgraph_datetime: BigInt! # uint256
+  attestation_subgraph_attestation_count: BigInt! # uint256
+  _timestamp: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BatchMetadataUpdate @entity(immutable: true) {
+  id: Bytes!
+  _fromTokenId: BigInt! # uint256
+  _toTokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MetadataUpdate @entity(immutable: true) {
+  id: Bytes!
+  _tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Mint @entity(immutable: true) {
+  id: Bytes!
+  _to: Bytes! # address
+  uri: String! # string
+  _timestamp: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type PerformUpkeep @entity(immutable: true) {
+  id: Bytes!
+  _timestamp: BigInt! # uint256
+  _counter: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transfer @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UpkeepCheck @entity(immutable: true) {
+  id: Bytes!
+  _timestamp: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ZkProof @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  zk_hash: Bytes! # bytes32
+  _timestamp: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
