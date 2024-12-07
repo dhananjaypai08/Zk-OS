@@ -91,8 +91,8 @@ async def generate_witness(request: Request):
             "output": ""
         }
 
-@app.post("/generate_proof/{deployment_id}")
-async def generate_proof(deployment_id: str):
+@app.post("/generate_proof")
+async def generate_proof():
     """Generate the proof for verification"""
     try:
         # Generate the proof
@@ -101,10 +101,10 @@ async def generate_proof(deployment_id: str):
                 "snarkjs",
                 "groth16",
                 "prove",
-                f"PrivateDeployment_{deployment_id}_0001.zkey",
-                f"witness_{deployment_id}.wtns",
-                f"proof_{deployment_id}.json",
-                f"public_{deployment_id}.json"
+                f"Main_0001.zkey",
+                f"witness.wtns",
+                f"proof.json",
+                f"public.json"
             ],
             capture_output=True,
             text=True,
@@ -121,12 +121,12 @@ async def generate_proof(deployment_id: str):
             "output": "d2c63a605ae27c13e43e26fe2c97a36c4556846dd3ef"
         }
 
-@app.post("/verify_proof/{deployment_id}")
-async def verify_proof(deployment_id: str):
+@app.post("/verify_proof")
+async def verify_proof():
     """Verify the generated proof"""
     try:
         # Read configuration
-        config_path = CIRCUIT_DIR / f"config_{deployment_id}.json"
+        config_path = CIRCUIT_DIR / f"config.json"
         with open(config_path, "r") as f:
             config = json.load(f)
         
@@ -143,9 +143,9 @@ async def verify_proof(deployment_id: str):
                 "snarkjs",
                 "groth16",
                 "verify",
-                f"verification_key_{deployment_id}.json",
-                f"public_{deployment_id}.json",
-                f"proof_{deployment_id}.json"
+                f"verification_key.json",
+                f"public.json",
+                f"proof.json"
             ],
             capture_output=True,
             text=True,
