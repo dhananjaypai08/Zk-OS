@@ -101,7 +101,7 @@ const TerminalPage: React.FC = () => {
       <div className="w-full max-w-4xl relative transform hover:scale-[1.02] transition-all duration-300">
         {/* Multiple Glow Layers */}
         <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00ff9d] to-[#4AA8FF] opacity-20 blur-2xl rounded-2xl"></div>
-        <div className="absolute -inset-1 bg-gradient-to-r from-[#00ff9d] via-[#4AA8FF] to-[#00ff9d] opacity-3 blur-xl rounded-2xl"></div>
+        <div className="absolute -inset-1 bg-gradient-to-r from-[#00ff9d] via-[#4AA8FF] to-[#00ff9d] opacity-0.7 blur-xl rounded-2xl"></div>
         
         {/* Terminal Window */}
         <div className="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
