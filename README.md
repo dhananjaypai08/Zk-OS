@@ -81,4 +81,4 @@
 
 2. Subgraph Indexing
 - New Subgraph Endpoint - 
-- Substream powered subgraph - https://api.studio.thegraph.com/query/90589/zk-os_substream/v1.1.1
+- Substream powered subgraph - [https://api.studio.thegraph.com/query/90589/zk-os_substream/v1.1.1](https://testnet.thegraph.com/explorer/subgraphs/4AZ8vNARqGMnUUnumtVvcJpywJxkxbuwVSXSBf4tQzdq?view=Query&chain=arbitrum-sepolia)
