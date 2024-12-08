@@ -50,27 +50,43 @@
 
 ---
 
-## How to Use ZK-OS
+## Installation
 
 ### Prerequisites
-1. Install **Node.js** and **Yarn**.
+1. Install **Node.js**, **Yarn**, and **Python**.
 2. Set up a wallet like **Metamask**.
-
-### Installation
+3. Frontend Setup
+   - Navigate to the frontend directory:
+     ```bash
+     cd frontend
+    - Install dependencies:
+       ```bash
+      yarn install
+    - Start the development server:
+       ```bash
+      yarn start
+4. Backend Setup
+   - Create a virtual environment:
+     ```bash
+     python -m venv env
+    - Activate the virtual environment:
+    - Start the development server:
+       ```bash
+      pip install -r requirements.txt
+    - Run the main file:
+       ```bash
+      python main.py
+### Steps
 1. Clone this repository:
    ```bash
    git clone https://github.com/yourusername/ZK-OS.git
    cd ZK-OS
 
-2. Install Dependencies:
-   yarn install
-
-3. Start the development server:
-   yarn start
-
-   
-
-   
+### Steps
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/ZK-OS.git
+   cd ZK-OS
 
 1. baseSepolia
 
