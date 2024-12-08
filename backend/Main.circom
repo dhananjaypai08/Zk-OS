@@ -6,7 +6,7 @@ include "node_modules/circomlib/circuits/comparators.circom";
 
 template AddressVerifier() {
     // Public inputs
-    signal input address; // Address as array of bits
+    signal input address[32]; // Address as array of bits
     signal input expectedAddress; // Expected address as field element
     
     /*

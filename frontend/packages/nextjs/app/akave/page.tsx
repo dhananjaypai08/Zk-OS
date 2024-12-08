@@ -2,15 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { AkaveService, MIN_FILE_SIZE } from "../../utils/akave";
-import { BugAntIcon } from "@heroicons/react/24/outline";
+import { BugAntIcon, DocumentArrowUpIcon, LinkIcon } from "@heroicons/react/24/outline";
 import { notification } from "~~/utils/scaffold-eth";
+import { Spinner } from "~~/components/Spinner";
+
+type UploadResponse = {
+  Name: string;
+  RootCID: string;
+  Size: number;
+};
 
 export default function UploadPage() {
   const [apiUrl, setApiUrl] = useState("");
   const [metadata, setMetadata] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState<UploadResponse | null>(null);
+  const [isInitializing, setIsInitializing] = useState(true);
 
-  // Run this only once when the component mounts
   useEffect(() => {
     const initializeBucket = async () => {
       try {
@@ -18,6 +26,8 @@ export default function UploadPage() {
       } catch (error) {
         console.error("Failed to initialize bucket:", error);
         notification.error("Failed to initialize storage. Please try again later.");
+      } finally {
+        setIsInitializing(false);
       }
     };
 
@@ -35,12 +45,13 @@ export default function UploadPage() {
     const jsonString = JSON.stringify(data, null, 2);
 
     // Add padding if needed to meet minimum size
-    const currentSize = new Blob([jsonString]).size;
     const paddedJson =
-      currentSize < MIN_FILE_SIZE ? { ...data, padding: "X".repeat(MIN_FILE_SIZE - currentSize + 10) } : data;
+      new Blob([jsonString]).size < MIN_FILE_SIZE
+        ? { ...data, padding: "X".repeat(MIN_FILE_SIZE) }
+        : data;
 
     const finalJsonString = JSON.stringify(paddedJson, null, 2);
-    const filename = `subgraph-${Date.now()}.json`;
+    const filename = `subgraph_${Date.now()}.json`;
 
     return new File([finalJsonString], filename, {
       type: "application/json",
@@ -53,18 +64,42 @@ export default function UploadPage() {
 
     try {
       const file = createJsonFile(apiUrl, metadata);
-      await AkaveService.uploadFile(file);
+      const response = await AkaveService.uploadFile(file);
+      
+      if (!response?.data) {
+        throw new Error("Upload failed - no response data");
+      }
 
+      setUploadedFile(response.data);
       notification.success("Subgraph data uploaded successfully!");
       setApiUrl("");
       setMetadata("");
     } catch (error) {
       console.error("Upload error:", error);
-      notification.error("Failed to upload subgraph data. Please try again.");
+      notification.error(
+        error instanceof Error 
+          ? error.message 
+          : "Failed to upload subgraph data. Please try again."
+      );
     } finally {
       setIsUploading(false);
     }
   };
+
+  const getDownloadUrl = (fileName: string) => {
+    return `http://localhost:8000/buckets/zkos-subgraphs/files/${fileName}/download`;
+  };
+
+  if (isInitializing) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center gap-4">
+          <Spinner size="lg" />
+          <p className="text-lg">Initializing storage...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center flex-col flex-grow pt-10">
@@ -76,8 +111,8 @@ export default function UploadPage() {
       </div>
 
       <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-        <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-          <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
+        <div className="flex justify-center items-start gap-12 flex-col sm:flex-row">
+          <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl w-full sm:w-auto">
             <form onSubmit={handleSubmit} className="space-y-8 w-full max-w-md">
               <div className="flex flex-col gap-2">
                 <label htmlFor="apiUrl" className="text-left text-lg">
@@ -91,6 +126,7 @@ export default function UploadPage() {
                   value={apiUrl}
                   onChange={e => setApiUrl(e.target.value)}
                   required
+                  disabled={isUploading}
                 />
               </div>
 
@@ -100,23 +136,62 @@ export default function UploadPage() {
                 </label>
                 <textarea
                   id="metadata"
-                  className="textarea w-full min-h-[200px]"
+                  className="textarea textarea-bordered w-full min-h-[120px]"
                   placeholder="Enter subgraph metadata..."
                   value={metadata}
                   onChange={e => setMetadata(e.target.value)}
                   required
+                  disabled={isUploading}
                 />
               </div>
 
               <button
                 type="submit"
-                className={`btn btn-primary w-full ${isUploading ? "loading" : ""}`}
+                className="btn btn-primary w-full"
                 disabled={isUploading}
               >
-                {isUploading ? "Uploading..." : "Submit"}
+                {isUploading ? (
+                  <>
+                    <Spinner size="sm" />
+                    <span>Uploading...</span>
+                  </>
+                ) : (
+                  <>
+                    <DocumentArrowUpIcon className="h-5 w-5" />
+                    <span>Submit</span>
+                  </>
+                )}
               </button>
             </form>
           </div>
+
+          {uploadedFile && (
+            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl w-full sm:w-auto">
+              <h3 className="text-xl font-bold mb-4">Upload Successful!</h3>
+              <div className="space-y-4 w-full">
+                <div className="text-left">
+                  <p className="text-sm text-base-content/70 mb-1">File Name:</p>
+                  <p className="font-mono text-sm break-all">{uploadedFile.Name}</p>
+                </div>
+                <div className="text-left">
+                  <p className="text-sm text-base-content/70 mb-1">CID:</p>
+                  <p className="font-mono text-sm break-all">{uploadedFile.RootCID}</p>
+                </div>
+                <div className="text-left">
+                  <p className="text-sm text-base-content/70 mb-1">Download Link:</p>
+                  <a
+                    href={getDownloadUrl(uploadedFile.Name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline btn-sm w-full"
+                  >
+                    <LinkIcon className="h-4 w-4" />
+                    <span>Open File</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
