@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { AkaveService, MIN_FILE_SIZE } from "../../utils/akave";
-import { BugAntIcon, DocumentArrowUpIcon, LinkIcon } from "@heroicons/react/24/outline";
 import { notification } from "~~/utils/scaffold-eth";
 import { Spinner } from "~~/components/Spinner";
 
@@ -41,10 +40,8 @@ export default function UploadPage() {
       timestamp: new Date().toISOString(),
     };
 
-    // Convert to JSON string with formatting
     const jsonString = JSON.stringify(data, null, 2);
-
-    // Add padding if needed to meet minimum size
+    const currentSize = new Blob([jsonString]).size;
     const paddedJson =
       new Blob([jsonString]).size < MIN_FILE_SIZE
         ? { ...data, padding: "X".repeat(MIN_FILE_SIZE) }
@@ -86,80 +83,94 @@ export default function UploadPage() {
     }
   };
 
-  const getDownloadUrl = (fileName: string) => {
-    return `http://localhost:8000/buckets/zkos-subgraphs/files/${fileName}/download`;
-  };
-
-  if (isInitializing) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="flex flex-col items-center gap-4">
-          <Spinner size="lg" />
-          <p className="text-lg">Initializing storage...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex items-center flex-col flex-grow pt-10">
-      <div className="px-5">
-        <h1 className="text-center mb-8">
-          <span className="block text-4xl font-bold">Upload Subgraph</span>
-          <span className="block text-2xl mb-2">Submit your subgraph metadata</span>
-        </h1>
-      </div>
+    <div className="min-h-screen bg-[#0B1120] p-8">
+      {/* Main container with terminal styling */}
+      <div className="w-full max-w-4xl mx-auto relative">
+        {/* Multiple Glow Layers */}
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00ff9d] to-[#4AA8FF] opacity-20 blur-2xl rounded-2xl"></div>
+        <div className="absolute -inset-1 bg-gradient-to-r from-[#00ff9d] via-[#4AA8FF] to-[#00ff9d] opacity-40 blur-xl rounded-2xl"></div>
 
-      <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-        <div className="flex justify-center items-start gap-12 flex-col sm:flex-row">
-          <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl w-full sm:w-auto">
-            <form onSubmit={handleSubmit} className="space-y-8 w-full max-w-md">
-              <div className="flex flex-col gap-2">
-                <label htmlFor="apiUrl" className="text-left text-lg">
-                  API URL
-                </label>
-                <input
-                  id="apiUrl"
-                  type="url"
-                  className="input input-bordered w-full"
-                  placeholder="https://api.thegraph.com/subgraphs/name/..."
-                  value={apiUrl}
-                  onChange={e => setApiUrl(e.target.value)}
-                  required
-                  disabled={isUploading}
-                />
+        {/* Terminal Window */}
+        <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl border border-[#00ff9d]">
+          {/* Terminal Header */}
+          <div className="bg-[#1c1c1c] px-4 py-3 flex items-center">
+            <div className="flex space-x-2">
+              <div className="w-3 h-3 bg-[#ff5f56] rounded-full shadow-inner" />
+              <div className="w-3 h-3 bg-[#ffbd2e] rounded-full shadow-inner" />
+              <div className="w-3 h-3 bg-[#27c93f] rounded-full shadow-inner" />
+            </div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 text-gray-400 text-sm">
+              Store Subgraph on Avake
+            </div>
+          </div>
+
+          {/* Terminal Content */}
+          <div className="p-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* API URL Input */}
+              <div className="transform transition-all duration-200">
+                <label className="block text-[#8fffad] mb-2 text-sm font-medium">Subgraph Endpoint *</label>
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#8fffad] to-[#4AA8FF] opacity-10 blur group-hover:opacity-50 transition-opacity duration-200 rounded-lg" />
+                  <input
+                    type="url"
+                    value={apiUrl}
+                    onChange={e => setApiUrl(e.target.value)}
+                    className="relative w-full px-4 py-3 bg-black border border-[#8fffad]/30 rounded-lg focus:outline-none focus:border-[#8fffad] text-[#4AA8FF] placeholder-[#4AA8FF]/50 transition-all duration-200"
+                    placeholder="Enter subgraph link"
+                    required
+                  />
+                </div>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label htmlFor="metadata" className="text-left text-lg">
-                  Metadata
-                </label>
-                <textarea
-                  id="metadata"
-                  className="textarea textarea-bordered w-full min-h-[120px]"
-                  placeholder="Enter subgraph metadata..."
-                  value={metadata}
-                  onChange={e => setMetadata(e.target.value)}
-                  required
-                  disabled={isUploading}
-                />
+              {/* Metadata Input */}
+              <div className="transform transition-all duration-200">
+                <label className="block text-[#8fffad] mb-2 text-sm font-medium">Metadata *</label>
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#8fffad] to-[#4AA8FF] opacity-10 blur group-hover:opacity-50 transition-opacity duration-200 rounded-lg" />
+                  <textarea
+                    value={metadata}
+                    onChange={e => setMetadata(e.target.value)}
+                    className="relative w-full h-48 px-4 py-3 bg-black border border-[#8fffad]/30 rounded-lg focus:outline-none focus:border-[#8fffad] text-[#4AA8FF] placeholder-[#4AA8FF]/50 transition-all duration-200 resize-none"
+                    placeholder="Enter metadata"
+                    required
+                  />
+                </div>
               </div>
 
+              {/* Submit Button */}
               <button
                 type="submit"
-                className="btn btn-primary w-full"
                 disabled={isUploading}
+                className="w-full py-3 px-4 bg-gradient-to-r from-[#8fffad]/10 to-[#4AA8FF]/10 text-[#8fffad] rounded-lg border border-[#8fffad]/30 hover:bg-gradient-to-r hover:from-[#8fffad]/20 hover:to-[#4AA8FF]/20 transition-all duration-300 transform hover:scale-[1.02] focus:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isUploading ? (
-                  <>
-                    <Spinner size="sm" />
-                    <span>Uploading...</span>
-                  </>
+                  <span className="flex items-center justify-center">
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Uploading...
+                  </span>
                 ) : (
-                  <>
-                    <DocumentArrowUpIcon className="h-5 w-5" />
-                    <span>Submit</span>
-                  </>
+                  "Upload Subgraph"
                 )}
               </button>
             </form>

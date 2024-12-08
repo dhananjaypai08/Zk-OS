@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 const TerminalPage: React.FC = () => {
   const [input, setInput] = useState<string>("");
-  const [output, setOutput] = useState<string[]>(["Welcome to zkOS", "Type \"ls\" to view available features"]);
+  const [output, setOutput] = useState<string[]>(["Welcome to zkOS", 'Type "ls" to view available features']);
   const [featuresShown, setFeaturesShown] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -40,7 +40,7 @@ const TerminalPage: React.FC = () => {
         "🔄 zkStorage",
         "🛡️ zkWallet",
         "",
-        'Use "cd <directory>" to navigate'
+        'Use "cd <directory>" to navigate',
       ]);
       setFeaturesShown(true);
     } else if (command.startsWith("cd ")) {
@@ -83,7 +83,7 @@ const TerminalPage: React.FC = () => {
         <h1 className="text-6xl font-bold mb-4">
           Welcome to <span className="text-[#00ff9d]">zkOS</span>
         </h1>
-        <p className="text-gray-400 text-xl mb-8">The first zero-knowledge operating system for the decentralized world</p>
+        <p className="text-gray-400 text-xl mb-8">A suite zero-knowledge operating tools for the decentralized world</p>
         <div className="flex gap-4 justify-center">
           <span className="px-4 py-2 bg-[#001F1A] text-[#00ff9d] rounded-full border border-[#00ff9d]/20">
             Secure by Design
@@ -103,7 +103,6 @@ const TerminalPage: React.FC = () => {
         <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00ff9d] to-[#4AA8FF] opacity-20 blur-2xl rounded-2xl"></div>
         <div className="absolute -inset-1 bg-gradient-to-r from-[#00ff9d] via-[#4AA8FF] to-[#00ff9d] opacity-40 blur-xl rounded-2xl"></div>
 
-        
         {/* Terminal Window */}
         <div className="relative rounded-2xl overflow-hidden bg-black shadow-2xl border border-[#00ff9d]">
           {/* Terminal Header */}
