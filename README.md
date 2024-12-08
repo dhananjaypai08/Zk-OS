@@ -82,12 +82,7 @@
    git clone https://github.com/yourusername/ZK-OS.git
    cd ZK-OS
 
-### Steps
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/ZK-OS.git
-   cd ZK-OS
-
+### Links
 1. baseSepolia
 
 | Network | Address                                                                                                                       |
